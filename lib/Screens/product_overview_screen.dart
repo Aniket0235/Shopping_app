@@ -1,14 +1,10 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/Providers/Product_provider.dart';
-import 'package:shop_app/Providers/Products.dart';
 import 'package:shop_app/Providers/cart.dart';
 import 'package:shop_app/Screens/cart_screen.dart';
 import 'package:shop_app/widgets/app_drawer.dart';
 import 'package:shop_app/widgets/products_grid.dart';
-import '../Providers/Products.dart';
-// import 'package:badges/badges.dart';
 
 enum FilterOption {
   Favorites,
@@ -57,8 +53,9 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(color: Colors.white),
                   ),
                   child: IconButton(
-                      icon: Icon(Icons.shopping_cart), onPressed: () {
-                       Navigator.of(context).pushNamed(CartScreen.routeName); 
+                      icon: Icon(Icons.shopping_cart),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(CartScreen.routeName);
                       }),
                 )),
       ]),

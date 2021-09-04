@@ -1,9 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/Providers/cart.dart';
-import 'package:shop_app/Screens/product_details_scteen.dart';
 
 class CartItem extends StatelessWidget {
   final String id;
@@ -42,15 +39,18 @@ class CartItem extends StatelessWidget {
                   title: Text('Remove item?'),
                   content: Text('Do you want to remove item from cart?'),
                   actions: <Widget>[
-                    TextButton(onPressed: (){
-                      Navigator.of(context).pop(false);
-                    }, child: Text('No')),
-                    TextButton(onPressed: (){
-                      Navigator.of(context).pop(true);
-                    }, child: Text('Yes'))
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(false);
+                        },
+                        child: Text('No')),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(true);
+                        },
+                        child: Text('Yes'))
                   ],
-                )
-                );
+                ));
       },
       onDismissed: (direction) {
         Provider.of<Cart>(context, listen: false).removeItem(productId);

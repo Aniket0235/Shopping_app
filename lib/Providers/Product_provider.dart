@@ -43,55 +43,43 @@ class Products with ChangeNotifier {
           'https://user-images.githubusercontent.com/76992302/131455621-c9dab177-aa21-42e4-8c52-3cd72ee0cb05.png',
     ),
   ];
-  // var _showFavoriteOnly =false;
 
   List<Product> get items {
-    // if (_showFavoriteOnly){
-    //   return _items.where((prodItem) => prodItem.isFavorite).toList();
-    // }
     return [..._items];
   }
 
   List<Product> get favoriteItems {
     return _items.where((prodItem) => prodItem.isFavorite).toList();
   }
-  // void showFavoritesOnly(){
-  //   _showFavoriteOnly=true;
-  //   notifyListeners()
-  // }
-  //  void showAll(){
-  //   _showFavoriteOnly=false;
-  //   notifyListeners();
-  // }
+
   Product findProductById(String id) {
     return _items.firstWhere((prod) => prod.id == id);
   }
 
   void addProduct(Product product) {
     final newProduct = Product(
-        id:DateTime.now().toString(),
+        id: DateTime.now().toString(),
         title: product.title,
         description: product.description,
         price: product.price,
         image: product.image);
-        _items.add(newProduct);
-        
+    _items.add(newProduct);
+
     notifyListeners();
   }
-  void deleteProduct(String id){
-  _items.removeWhere((prod)=>prod.id==id);
-  notifyListeners();
-}
-  void updateProduct(String id, Product newProduct){
-  final prodIndex = _items.indexWhere((prod)=>prod.id==id);
-  if(prodIndex>=0){
-  _items[prodIndex]=newProduct;
-  notifyListeners();
-  }else{
-    print('...');
 
+  void deleteProduct(String id) {
+    _items.removeWhere((prod) => prod.id == id);
+    notifyListeners();
   }
-}
 
-
+  void updateProduct(String id, Product newProduct) {
+    final prodIndex = _items.indexWhere((prod) => prod.id == id);
+    if (prodIndex >= 0) {
+      _items[prodIndex] = newProduct;
+      notifyListeners();
+    } else {
+      print('...');
+    }
+  }
 }

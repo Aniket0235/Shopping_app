@@ -1,8 +1,5 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/Providers/Product_provider.dart';
-
 
 class Product with ChangeNotifier {
   final String id;
@@ -19,8 +16,8 @@ class Product with ChangeNotifier {
       required this.image,
       this.isFavorite = false});
 
-void toogleFavoriteStatus(){
-  isFavorite= !isFavorite;
-  notifyListeners();
-}
+  void toogleFavoriteStatus() {
+    isFavorite = !isFavorite;
+    notifyListeners();
+  }
 }

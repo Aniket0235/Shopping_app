@@ -3,9 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/Providers/Product_provider.dart';
 
 class ProductDetailScreen extends StatelessWidget {
-  // final String title;
-
-  // ProductDetailScreen(this.title);
   static const routeName = '/product-detail';
   @override
   Widget build(BuildContext context) {
@@ -38,7 +35,7 @@ class ProductDetailScreen extends StatelessWidget {
             ),
             Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal:10 ),
+              padding: EdgeInsets.symmetric(horizontal: 10),
               child: Text(
                 loadedProduct.description,
                 textAlign: TextAlign.center,

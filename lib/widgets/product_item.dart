@@ -5,12 +5,6 @@ import 'package:shop_app/Providers/cart.dart';
 import 'package:shop_app/Screens/product_details_scteen.dart';
 
 class ProductItem extends StatelessWidget {
-  // final String id;
-  // final String title;
-  // final String image;
-
-  // ProductItem(this.id, this.title, this.image);
-
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
@@ -50,10 +44,11 @@ class ProductItem extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   duration: Duration(seconds: 2),
-                  action: SnackBarAction(label: 'UNDO', onPressed: (){
-                    cart.removeSingItem(product.id);
-                  }),
-                  
+                  action: SnackBarAction(
+                      label: 'UNDO',
+                      onPressed: () {
+                        cart.removeSingItem(product.id);
+                      }),
                 ));
               },
               icon: Icon(
