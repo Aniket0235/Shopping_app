@@ -9,7 +9,7 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: <Widget>[
           AppBar(
-            title: Text('More'),
+            title: Text('More',style: TextStyle(color: Colors.black)),
             automaticallyImplyLeading: false,
           ),
           Divider(),

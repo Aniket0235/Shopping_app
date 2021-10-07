@@ -10,8 +10,11 @@ import 'Screens/product_overview_screen.dart';
 import 'package:shop_app/Screens/product_overview_screen.dart';
 import 'package:shop_app/Screens/product_details_scteen.dart';
 import 'Providers/Product_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 

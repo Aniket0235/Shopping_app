@@ -1,11 +1,10 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/Providers/Product_provider.dart';
-import 'package:shop_app/Providers/cart.dart';
-import 'package:shop_app/Screens/cart_screen.dart';
-import 'package:shop_app/widgets/app_drawer.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:shop_app/widgets/products_grid.dart';
+import 'orders_screen.dart';
+import 'user_products.dart';
 
 enum FilterOption {
   Favorites,
@@ -18,11 +17,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int index = 0;
   var _showOnlyFavorites = false;
   var _isInit = true;
   var _isLoading = false;
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
     if (_isInit) {
       setState(() {
         _isLoading = true;
@@ -34,56 +35,60 @@ class _HomePageState extends State<HomePage> {
       });
     }
     _isInit = false;
-    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('All Categories'), actions: <Widget>[
-        PopupMenuButton(
-            onSelected: (FilterOption selectedValue) {
-              setState(() {
-                if (selectedValue == FilterOption.Favorites) {
-                  _showOnlyFavorites = true;
-                } else {
-                  _showOnlyFavorites = false;
-                }
-              });
-            },
-            icon: Icon(Icons.more_vert),
-            itemBuilder: (_) => [
-                  PopupMenuItem(
-                    child: Text('Only Favorites'),
-                    value: FilterOption.Favorites,
-                  ),
-                  PopupMenuItem(
-                    child: Text('Show All'),
-                    value: FilterOption.All,
-                  ),
-                ]),
-        Consumer<Cart>(
-            builder: (context, value, ch) => Badge(
-                  position: BadgePosition.topEnd(top: 0, end: 3),
-                  animationDuration: Duration(milliseconds: 300),
-                  animationType: BadgeAnimationType.slide,
-                  badgeContent: Text(
-                    value.itemCount.toString(),
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  child: IconButton(
-                      icon: Icon(Icons.shopping_cart),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(CartScreen.routeName);
-                      }),
-                )),
-      ]),
-      drawer: AppDrawer(),
-      body: _isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : ProductsGrid(_showOnlyFavorites),
-    );
+        bottomNavigationBar: buildBottomNavigationBar(),
+        body: _isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : selectScreen());
+  }
+
+  Widget selectScreen() {
+    switch (index) {
+      case 1:
+        return OrdersScreen();
+      case 2:
+        return UserProductsScreen();
+      default:
+        return ProductsGrid(_showOnlyFavorites);
+    }
+  }
+
+  Widget buildBottomNavigationBar() {
+    final inactiveColor = Colors.grey;
+    return BottomNavyBar(
+        selectedIndex: index,
+        items: <BottomNavyBarItem>[
+          BottomNavyBarItem(
+              icon: Icon(Icons.apps),
+              title: Text("Home"),
+              textAlign: TextAlign.center,
+              activeColor: Colors.green,
+              inactiveColor: inactiveColor),
+          // BottomNavyBarItem(
+          //   icon: Icon(Icons.shop),
+          //     title: Text('Shop'),
+          //     textAlign: TextAlign.center,
+          //     activeColor: Colors.deepOrange,
+          //     inactiveColor: inactiveColor),
+          BottomNavyBarItem(
+              icon: Icon(Icons.payment),
+              title: Text('Orders'),
+              textAlign: TextAlign.center,
+              activeColor: Colors.redAccent,
+              inactiveColor: inactiveColor),
+          BottomNavyBarItem(
+              icon: Icon(Icons.edit),
+              title: Text('Manage Products'),
+              textAlign: TextAlign.center,
+              activeColor: Colors.blueAccent,
+              inactiveColor: inactiveColor),
+        ],
+        onItemSelected: (index) => setState(() => this.index = index));
   }
 }
